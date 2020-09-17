@@ -9,30 +9,35 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import { StockFilter } from "@/types/Stock";
-import { reactive } from "vue";
+import { defineComponent, reactive } from "vue";
 import StockSearch from "./StockSearch.vue";
 import CompanyOverview from "./CompanyOverview.vue";
 import StockChart from "./StockChart.vue";
 
-export default {
+export default defineComponent({
   name: "StockPanel",
   components: {
     StockSearch,
     CompanyOverview,
     StockChart
+  },
+  setup() {
+    const filter: StockFilter = reactive({
+      symbol: "",
+      function: "TIME_SERIES_DAILY",
+      interval: "1min"
+    });
+
+    const onSearch = (searchFilter: StockFilter) => {
+      filter.symbol = searchFilter.symbol;
+      filter.function = searchFilter.function;
+    };
+    return {
+      filter,
+      onSearch
+    };
   }
-};
-
-export const filter: StockFilter = reactive({
-  symbol: "",
-  function: "TIME_SERIES_DAILY",
-  interval: "1min"
 });
-
-export const onSearch = (searchFilter: StockFilter) => {
-  filter.symbol = searchFilter.symbol;
-  filter.function = searchFilter.function;
-};
 </script>
