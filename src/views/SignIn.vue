@@ -33,7 +33,7 @@ export default {
 .sign-in {
   &__card {
     max-width: 50rem;
-    min-width: 50rem;
+    width: 100%;
   }
 }
 </style>
